@@ -1,25 +1,27 @@
-// import { useLoaderData } from "@remix-run/react";
-// import { getStrapiData } from "~/api/posts/get-data-from-strapi.server";
+import { useLoaderData } from "@remix-run/react";
+import { getDataFromStrapi } from "~/api/get-data-from-strapi.server";
 
-// export async function loader() {
-//   const response = await getDataFromStrapi();
-//   return response.json();
-// }
+export async function loader() {
+  const response = await getDataFromStrapi("faq-collections/2", "populate=*");
+  return response.json();
+}
 
-const data = {
-  id: 1,
-  title: "Frequently Asked Questions",
-  text: "We have answers to your questions",
-  questions: [
-    { id: 1, question: "What is a hackathon?", answer: "A hackathon is a 24 hour event where students come together to build something cool. Is's a great opportunity to learn new skills, meet new people, and have fun!" },
-    { id: 2, question: "What is a hackathon?", answer: "A hackathon is a 24 hour event where students come together to build something cool. Is's a great opportunity to learn new skills, meet new people, and have fun!" },
-    { id: 3, question: "What is a hackathon?", answer: "A hackathon is a 24 hour event where students come together to build something cool. Is's a great opportunity to learn new skills, meet new people, and have fun!" },
-    { id: 4, question: "What is a hackathon?", answer: "A hackathon is a 24 hour event where students come together to build something cool. Is's a great opportunity to learn new skills, meet new people, and have fun!" },
-  ],
-};
+// const data = {
+//   id: 1,
+//   title: "Frequently Asked Questions",
+//   text: "We have answers to your questions",
+//   questions: [
+//     { id: 1, question: "What is a hackathon?", answer: "A hackathon is a 24 hour event where students come together to build something cool. Is's a great opportunity to learn new skills, meet new people, and have fun!" },
+//     { id: 2, question: "What is a hackathon?", answer: "A hackathon is a 24 hour event where students come together to build something cool. Is's a great opportunity to learn new skills, meet new people, and have fun!" },
+//     { id: 3, question: "What is a hackathon?", answer: "A hackathon is a 24 hour event where students come together to build something cool. Is's a great opportunity to learn new skills, meet new people, and have fun!" },
+//     { id: 4, question: "What is a hackathon?", answer: "A hackathon is a 24 hour event where students come together to build something cool. Is's a great opportunity to learn new skills, meet new people, and have fun!" },
+//   ],
+// };
 
 function FaqCard({ data }) {
-  const { question, answer } = data;
+
+  const { question, answer } = data.attributes;
+
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 px-3 mb-20">
       <div className="relative pt-12 px-6 pb-6 border rounded-2xl">
@@ -61,7 +63,13 @@ function FaqCard({ data }) {
 }
 
 function Faqs({ data }) {
-  const { title, text, questions } = data;
+  console.log(data)
+
+  const { title, text  } = data.attributes;
+  const questions = data.attributes.questions.data;
+  console.log(questions)
+
+  // const { title, text, questions } = data;
   return (
     <div className="container px-4 mx-auto">
       <div className="max-w-3xl mx-auto mb-24 text-center">
@@ -82,7 +90,7 @@ function Faqs({ data }) {
 }
 
 export default function HomeRoute() {
-  // const { data } = useLoaderData();
+  const { data } = useLoaderData();
   return (
     <section>
       <Faqs data={data} />
