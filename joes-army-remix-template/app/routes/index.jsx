@@ -1,8 +1,8 @@
 // import { useLoaderData } from "@remix-run/react";
-// import { getStrapiData } from "~/api/posts/get-data-from-strapi.server";
+// import { getDataFromStrapi } from "~/api/get-data-from-strapi.server";
 
 // export async function loader() {
-//   const response = await getDataFromStrapi();
+//   const response = await getDataFromStrapi("faq-collections/2", "populate=*");
 //   return response.json();
 // }
 
