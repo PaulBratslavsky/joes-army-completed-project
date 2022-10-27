@@ -19,9 +19,7 @@ export async function loader() {
 // };
 
 function FaqCard({ data }) {
-
   const { question, answer } = data.attributes;
-
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 px-3 mb-20">
       <div className="relative pt-12 px-6 pb-6 border rounded-2xl">
@@ -63,13 +61,8 @@ function FaqCard({ data }) {
 }
 
 function Faqs({ data }) {
-  console.log(data)
-
-  const { title, text  } = data.attributes;
+  const { title, text } = data;
   const questions = data.attributes.questions.data;
-  console.log(questions)
-
-  // const { title, text, questions } = data;
   return (
     <div className="container px-4 mx-auto">
       <div className="max-w-3xl mx-auto mb-24 text-center">
@@ -91,6 +84,7 @@ function Faqs({ data }) {
 
 export default function HomeRoute() {
   const { data } = useLoaderData();
+
   return (
     <section>
       <Faqs data={data} />
